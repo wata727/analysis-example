@@ -1,0 +1,657 @@
+state 28 contains 1 shift/reduce conflicts
+state 32 contains 3 shift/reduce conflicts
+state 34 contains 3 shift/reduce conflicts
+state 35 contains 3 shift/reduce conflicts
+state 38 contains 1 shift/reduce conflicts
+state 40 contains 1 shift/reduce conflicts
+state 50 contains 1 shift/reduce conflicts
+state 52 contains 1 shift/reduce conflicts
+
+
+-------- Grammar --------
+
+rule 1 target: aexp
+rule 2 target: bexp
+rule 3 target: stmt
+rule 4 aexp: INT
+rule 5 aexp: LIDENT
+rule 6 aexp: aexp PLUS aexp
+rule 7 aexp: aexp MUL aexp
+rule 8 aexp: aexp MINUS aexp
+rule 9 aexp: LPAREN aexp RPAREN
+rule 10 bexp: BOOL
+rule 11 bexp: aexp EQ aexp
+rule 12 bexp: aexp LEQ aexp
+rule 13 bexp: NOT bexp
+rule 14 bexp: bexp OR bexp
+rule 15 bexp: LPAREN bexp RPAREN
+rule 16 stmt: LIDENT ASSIGN aexp
+rule 17 stmt: SKIP
+rule 18 stmt: stmt END stmt
+rule 19 stmt: IF bexp THEN stmt ELSE stmt
+rule 20 stmt: WHILE bexp DO stmt
+rule 21 stmt: LPAREN stmt RPAREN
+
+------- Symbols -------
+
+**Nonterminals, with rules where they appear
+
+  $start (22)
+    on right: 
+    on left : 
+  target (23)
+    on right: 
+    on left : 1 2 3
+  aexp (24)
+    on right: 1 6 7 8 9 11 12 16
+    on left : 4 5 6 7 8 9
+  bexp (25)
+    on right: 2 13 14 15 19 20
+    on left : 10 11 12 13 14 15
+  stmt (26)
+    on right: 3 18 19 20 21
+    on left : 16 17 18 19 20 21
+
+**Terminals, with rules where they appear
+
+  $end (0) 
+  error (1) 
+  INT (2) 4
+  LIDENT (3) 5 16
+  PLUS (4) 6
+  MUL (5) 7
+  MINUS (6) 8
+  LPAREN (7) 9 15 21
+  RPAREN (8) 9 15 21
+  BOOL (9) 10
+  EQ (10) 11
+  LEQ (11) 12
+  NOT (12) 13
+  OR (13) 14
+  ASSIGN (14) 16
+  SKIP (15) 17
+  END (16) 18
+  IF (17) 19
+  THEN (18) 19
+  ELSE (19) 19
+  WHILE (20) 20
+  DO (21) 20
+
+--------- State ---------
+
+state 0
+
+
+  INT           shift, and go to state 5
+  LIDENT        shift, and go to state 6
+  LPAREN        shift, and go to state 7
+  BOOL          shift, and go to state 8
+  NOT           shift, and go to state 9
+  SKIP          shift, and go to state 10
+  IF            shift, and go to state 11
+  WHILE         shift, and go to state 12
+
+  target        go to state 1
+  aexp          go to state 2
+  bexp          go to state 3
+  stmt          go to state 4
+
+state 1
+
+
+  $end          shift, and go to state 13
+
+
+state 2
+
+   1) target : aexp _
+   6) aexp : aexp _ PLUS aexp
+   7) aexp : aexp _ MUL aexp
+   8) aexp : aexp _ MINUS aexp
+  11) bexp : aexp _ EQ aexp
+  12) bexp : aexp _ LEQ aexp
+
+  PLUS          shift, and go to state 14
+  MUL           shift, and go to state 15
+  MINUS         shift, and go to state 16
+  EQ            shift, and go to state 17
+  LEQ           shift, and go to state 18
+  $default      reduce using rule 1 (target)
+
+
+state 3
+
+   2) target : bexp _
+  14) bexp : bexp _ OR bexp
+
+  OR            shift, and go to state 19
+  $default      reduce using rule 2 (target)
+
+
+state 4
+
+   3) target : stmt _
+  18) stmt : stmt _ END stmt
+
+  END           shift, and go to state 20
+  $default      reduce using rule 3 (target)
+
+
+state 5
+
+   4) aexp : INT _
+
+  $default      reduce using rule 4 (aexp)
+
+
+state 6
+
+   5) aexp : LIDENT _
+  16) stmt : LIDENT _ ASSIGN aexp
+
+  ASSIGN        shift, and go to state 21
+  $default      reduce using rule 5 (aexp)
+
+
+state 7
+
+   9) aexp : LPAREN _ aexp RPAREN
+  15) bexp : LPAREN _ bexp RPAREN
+  21) stmt : LPAREN _ stmt RPAREN
+
+  INT           shift, and go to state 5
+  LIDENT        shift, and go to state 6
+  LPAREN        shift, and go to state 7
+  BOOL          shift, and go to state 8
+  NOT           shift, and go to state 9
+  SKIP          shift, and go to state 10
+  IF            shift, and go to state 11
+  WHILE         shift, and go to state 12
+
+  aexp          go to state 22
+  bexp          go to state 23
+  stmt          go to state 24
+
+state 8
+
+  10) bexp : BOOL _
+
+  $default      reduce using rule 10 (bexp)
+
+
+state 9
+
+  13) bexp : NOT _ bexp
+
+  INT           shift, and go to state 5
+  LIDENT        shift, and go to state 25
+  LPAREN        shift, and go to state 27
+  BOOL          shift, and go to state 8
+  NOT           shift, and go to state 9
+
+  aexp          go to state 26
+  bexp          go to state 28
+
+state 10
+
+  17) stmt : SKIP _
+
+  $default      reduce using rule 17 (stmt)
+
+
+state 11
+
+  19) stmt : IF _ bexp THEN stmt ELSE stmt
+
+  INT           shift, and go to state 5
+  LIDENT        shift, and go to state 25
+  LPAREN        shift, and go to state 27
+  BOOL          shift, and go to state 8
+  NOT           shift, and go to state 9
+
+  aexp          go to state 26
+  bexp          go to state 29
+
+state 12
+
+  20) stmt : WHILE _ bexp DO stmt
+
+  INT           shift, and go to state 5
+  LIDENT        shift, and go to state 25
+  LPAREN        shift, and go to state 27
+  BOOL          shift, and go to state 8
+  NOT           shift, and go to state 9
+
+  aexp          go to state 26
+  bexp          go to state 30
+
+state 13
+
+
+  $end          shift, and go to state 31
+
+
+state 14
+
+   6) aexp : aexp PLUS _ aexp
+
+  INT           shift, and go to state 5
+  LIDENT        shift, and go to state 25
+  LPAREN        shift, and go to state 33
+
+  aexp          go to state 32
+
+state 15
+
+   7) aexp : aexp MUL _ aexp
+
+  INT           shift, and go to state 5
+  LIDENT        shift, and go to state 25
+  LPAREN        shift, and go to state 33
+
+  aexp          go to state 34
+
+state 16
+
+   8) aexp : aexp MINUS _ aexp
+
+  INT           shift, and go to state 5
+  LIDENT        shift, and go to state 25
+  LPAREN        shift, and go to state 33
+
+  aexp          go to state 35
+
+state 17
+
+  11) bexp : aexp EQ _ aexp
+
+  INT           shift, and go to state 5
+  LIDENT        shift, and go to state 25
+  LPAREN        shift, and go to state 33
+
+  aexp          go to state 36
+
+state 18
+
+  12) bexp : aexp LEQ _ aexp
+
+  INT           shift, and go to state 5
+  LIDENT        shift, and go to state 25
+  LPAREN        shift, and go to state 33
+
+  aexp          go to state 37
+
+state 19
+
+  14) bexp : bexp OR _ bexp
+
+  INT           shift, and go to state 5
+  LIDENT        shift, and go to state 25
+  LPAREN        shift, and go to state 27
+  BOOL          shift, and go to state 8
+  NOT           shift, and go to state 9
+
+  aexp          go to state 26
+  bexp          go to state 38
+
+state 20
+
+  18) stmt : stmt END _ stmt
+
+  LIDENT        shift, and go to state 39
+  LPAREN        shift, and go to state 41
+  SKIP          shift, and go to state 10
+  IF            shift, and go to state 11
+  WHILE         shift, and go to state 12
+
+  stmt          go to state 40
+
+state 21
+
+  16) stmt : LIDENT ASSIGN _ aexp
+
+  INT           shift, and go to state 5
+  LIDENT        shift, and go to state 25
+  LPAREN        shift, and go to state 33
+
+  aexp          go to state 42
+
+state 22
+
+   6) aexp : aexp _ PLUS aexp
+   7) aexp : aexp _ MUL aexp
+   8) aexp : aexp _ MINUS aexp
+   9) aexp : LPAREN aexp _ RPAREN
+  11) bexp : aexp _ EQ aexp
+  12) bexp : aexp _ LEQ aexp
+
+  PLUS          shift, and go to state 14
+  MUL           shift, and go to state 15
+  MINUS         shift, and go to state 16
+  RPAREN        shift, and go to state 43
+  EQ            shift, and go to state 17
+  LEQ           shift, and go to state 18
+
+
+state 23
+
+  14) bexp : bexp _ OR bexp
+  15) bexp : LPAREN bexp _ RPAREN
+
+  RPAREN        shift, and go to state 44
+  OR            shift, and go to state 19
+
+
+state 24
+
+  18) stmt : stmt _ END stmt
+  21) stmt : LPAREN stmt _ RPAREN
+
+  RPAREN        shift, and go to state 45
+  END           shift, and go to state 20
+
+
+state 25
+
+   5) aexp : LIDENT _
+
+  $default      reduce using rule 5 (aexp)
+
+
+state 26
+
+   6) aexp : aexp _ PLUS aexp
+   7) aexp : aexp _ MUL aexp
+   8) aexp : aexp _ MINUS aexp
+  11) bexp : aexp _ EQ aexp
+  12) bexp : aexp _ LEQ aexp
+
+  PLUS          shift, and go to state 14
+  MUL           shift, and go to state 15
+  MINUS         shift, and go to state 16
+  EQ            shift, and go to state 17
+  LEQ           shift, and go to state 18
+
+
+state 27
+
+   9) aexp : LPAREN _ aexp RPAREN
+  15) bexp : LPAREN _ bexp RPAREN
+
+  INT           shift, and go to state 5
+  LIDENT        shift, and go to state 25
+  LPAREN        shift, and go to state 27
+  BOOL          shift, and go to state 8
+  NOT           shift, and go to state 9
+
+  aexp          go to state 22
+  bexp          go to state 23
+
+state 28
+
+  13) bexp : NOT bexp _
+  14) bexp : bexp _ OR bexp
+
+  OR            shift, and go to state 19
+  OR            [reduce using rule 13 (bexp)]
+  $default      reduce using rule 13 (bexp)
+
+
+state 29
+
+  14) bexp : bexp _ OR bexp
+  19) stmt : IF bexp _ THEN stmt ELSE stmt
+
+  OR            shift, and go to state 19
+  THEN          shift, and go to state 46
+
+
+state 30
+
+  14) bexp : bexp _ OR bexp
+  20) stmt : WHILE bexp _ DO stmt
+
+  OR            shift, and go to state 19
+  DO            shift, and go to state 47
+
+
+state 31
+
+
+  $default      accept
+
+
+state 32
+
+   6) aexp : aexp _ PLUS aexp
+   6) aexp : aexp PLUS aexp _
+   7) aexp : aexp _ MUL aexp
+   8) aexp : aexp _ MINUS aexp
+
+  PLUS          shift, and go to state 14
+  PLUS          [reduce using rule 6 (aexp)]
+  MUL           shift, and go to state 15
+  MUL           [reduce using rule 6 (aexp)]
+  MINUS         shift, and go to state 16
+  MINUS         [reduce using rule 6 (aexp)]
+  $default      reduce using rule 6 (aexp)
+
+
+state 33
+
+   9) aexp : LPAREN _ aexp RPAREN
+
+  INT           shift, and go to state 5
+  LIDENT        shift, and go to state 25
+  LPAREN        shift, and go to state 33
+
+  aexp          go to state 48
+
+state 34
+
+   6) aexp : aexp _ PLUS aexp
+   7) aexp : aexp _ MUL aexp
+   7) aexp : aexp MUL aexp _
+   8) aexp : aexp _ MINUS aexp
+
+  PLUS          shift, and go to state 14
+  PLUS          [reduce using rule 7 (aexp)]
+  MUL           shift, and go to state 15
+  MUL           [reduce using rule 7 (aexp)]
+  MINUS         shift, and go to state 16
+  MINUS         [reduce using rule 7 (aexp)]
+  $default      reduce using rule 7 (aexp)
+
+
+state 35
+
+   6) aexp : aexp _ PLUS aexp
+   7) aexp : aexp _ MUL aexp
+   8) aexp : aexp _ MINUS aexp
+   8) aexp : aexp MINUS aexp _
+
+  PLUS          shift, and go to state 14
+  PLUS          [reduce using rule 8 (aexp)]
+  MUL           shift, and go to state 15
+  MUL           [reduce using rule 8 (aexp)]
+  MINUS         shift, and go to state 16
+  MINUS         [reduce using rule 8 (aexp)]
+  $default      reduce using rule 8 (aexp)
+
+
+state 36
+
+   6) aexp : aexp _ PLUS aexp
+   7) aexp : aexp _ MUL aexp
+   8) aexp : aexp _ MINUS aexp
+  11) bexp : aexp EQ aexp _
+
+  PLUS          shift, and go to state 14
+  MUL           shift, and go to state 15
+  MINUS         shift, and go to state 16
+  $default      reduce using rule 11 (bexp)
+
+
+state 37
+
+   6) aexp : aexp _ PLUS aexp
+   7) aexp : aexp _ MUL aexp
+   8) aexp : aexp _ MINUS aexp
+  12) bexp : aexp LEQ aexp _
+
+  PLUS          shift, and go to state 14
+  MUL           shift, and go to state 15
+  MINUS         shift, and go to state 16
+  $default      reduce using rule 12 (bexp)
+
+
+state 38
+
+  14) bexp : bexp _ OR bexp
+  14) bexp : bexp OR bexp _
+
+  OR            shift, and go to state 19
+  OR            [reduce using rule 14 (bexp)]
+  $default      reduce using rule 14 (bexp)
+
+
+state 39
+
+  16) stmt : LIDENT _ ASSIGN aexp
+
+  ASSIGN        shift, and go to state 21
+
+
+state 40
+
+  18) stmt : stmt _ END stmt
+  18) stmt : stmt END stmt _
+
+  END           shift, and go to state 20
+  END           [reduce using rule 18 (stmt)]
+  $default      reduce using rule 18 (stmt)
+
+
+state 41
+
+  21) stmt : LPAREN _ stmt RPAREN
+
+  LIDENT        shift, and go to state 39
+  LPAREN        shift, and go to state 41
+  SKIP          shift, and go to state 10
+  IF            shift, and go to state 11
+  WHILE         shift, and go to state 12
+
+  stmt          go to state 24
+
+state 42
+
+   6) aexp : aexp _ PLUS aexp
+   7) aexp : aexp _ MUL aexp
+   8) aexp : aexp _ MINUS aexp
+  16) stmt : LIDENT ASSIGN aexp _
+
+  PLUS          shift, and go to state 14
+  MUL           shift, and go to state 15
+  MINUS         shift, and go to state 16
+  $default      reduce using rule 16 (stmt)
+
+
+state 43
+
+   9) aexp : LPAREN aexp RPAREN _
+
+  $default      reduce using rule 9 (aexp)
+
+
+state 44
+
+  15) bexp : LPAREN bexp RPAREN _
+
+  $default      reduce using rule 15 (bexp)
+
+
+state 45
+
+  21) stmt : LPAREN stmt RPAREN _
+
+  $default      reduce using rule 21 (stmt)
+
+
+state 46
+
+  19) stmt : IF bexp THEN _ stmt ELSE stmt
+
+  LIDENT        shift, and go to state 39
+  LPAREN        shift, and go to state 41
+  SKIP          shift, and go to state 10
+  IF            shift, and go to state 11
+  WHILE         shift, and go to state 12
+
+  stmt          go to state 49
+
+state 47
+
+  20) stmt : WHILE bexp DO _ stmt
+
+  LIDENT        shift, and go to state 39
+  LPAREN        shift, and go to state 41
+  SKIP          shift, and go to state 10
+  IF            shift, and go to state 11
+  WHILE         shift, and go to state 12
+
+  stmt          go to state 50
+
+state 48
+
+   6) aexp : aexp _ PLUS aexp
+   7) aexp : aexp _ MUL aexp
+   8) aexp : aexp _ MINUS aexp
+   9) aexp : LPAREN aexp _ RPAREN
+
+  PLUS          shift, and go to state 14
+  MUL           shift, and go to state 15
+  MINUS         shift, and go to state 16
+  RPAREN        shift, and go to state 43
+
+
+state 49
+
+  18) stmt : stmt _ END stmt
+  19) stmt : IF bexp THEN stmt _ ELSE stmt
+
+  END           shift, and go to state 20
+  ELSE          shift, and go to state 51
+
+
+state 50
+
+  18) stmt : stmt _ END stmt
+  20) stmt : WHILE bexp DO stmt _
+
+  END           shift, and go to state 20
+  END           [reduce using rule 20 (stmt)]
+  $default      reduce using rule 20 (stmt)
+
+
+state 51
+
+  19) stmt : IF bexp THEN stmt ELSE _ stmt
+
+  LIDENT        shift, and go to state 39
+  LPAREN        shift, and go to state 41
+  SKIP          shift, and go to state 10
+  IF            shift, and go to state 11
+  WHILE         shift, and go to state 12
+
+  stmt          go to state 52
+
+state 52
+
+  18) stmt : stmt _ END stmt
+  19) stmt : IF bexp THEN stmt ELSE stmt _
+
+  END           shift, and go to state 20
+  END           [reduce using rule 19 (stmt)]
+  $default      reduce using rule 19 (stmt)
+
