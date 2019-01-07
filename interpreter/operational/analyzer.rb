@@ -1,5 +1,5 @@
-require_relative "../parser/lib/parser.rb"
-require_relative "../parser/lib/structure.rb"
+require_relative "../../parser/lib/parser"
+require_relative "../../parser/lib/structure"
 require "stringio"
 require "strscan"
 
@@ -40,7 +40,7 @@ def sos(node)
   end
 end
 
-ast = WhileParser.parse(File.read("example.wh"))
+ast = WhileParser.parse(File.read("../example.wh"))
 
 ast.each { |stmt| sos(stmt) }
 
