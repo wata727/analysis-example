@@ -7,22 +7,22 @@ require_relative "state"
 
 x = ARGV.first.to_i
 
-def math_object(node)
+def function(node)
   case node
   when Array
-    Composition
+    Composition.new(function(node[0]), function(node[1]))
   when Integer
-    Number
+    Number.new(node)
   when TrueClass, FalseClass
-    Bool
+    Bool.new(node)
   when AssignStmt
-    Update
+    Update.new(function(node.name), function(node.val))
   when SkipStmt
-    Identity
+    Identity.new
   when IfStmt
-    Cond
+    Cond.new(function(node.cond), function(node.true), function(node.false))
   when WhileStmt
-    Fix
+    Fix.new(function(node.cond), function(node.stmt))
   when NotExpr
     Not
   when OrExpr
@@ -32,7 +32,7 @@ def math_object(node)
   when LessEqualExpr
     LessEqual
   when LIdentExpr
-    Var
+    Var.new(node.name)
   when PlusExpr
     Plus
   when MulExpr
@@ -43,9 +43,9 @@ def math_object(node)
 end
 
 ast = WhileParser.parse(File.read("../example.wh"))
-state = State.new(x)
+state = State.new.update(x, @x)
 
-f = math_object(ast)
+f = function(ast)
 s = f.call(s)
 
 s.instance_variables.each do |var|
