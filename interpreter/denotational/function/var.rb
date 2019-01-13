@@ -4,6 +4,6 @@ class Var
   end
 
   def call(state)
-    @state.fetch(@name)
+    state.fetch(@name)
   end
 end

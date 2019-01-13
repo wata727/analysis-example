@@ -24,21 +24,21 @@ def function(node)
   when WhileStmt
     Fix.new(function(node.cond), function(node.stmt))
   when NotExpr
-    Not
+    Not.new(function(node.expr))
   when OrExpr
-    OR
+    Or.new(function(node.lhs), function(node.rhs))
   when EqualExpr
-    Equal
+    Equal.new(function(node.lhs), function(node.rhs))
   when LessEqualExpr
-    LessEqual
+    LessEqual.new(function(node.lhs), function(node.rhs))
   when LIdentExpr
     Var.new(node.name)
   when PlusExpr
-    Plus
+    Plus.new(function(node.lhs), function(node.rhs))
   when MulExpr
-    Mul
+    Mul.new(function(node.lhs), function(node.rhs))
   when MinusExpr
-    Minus
+    Minus.new(function(node.lhs), function(node.rhs))
   end
 end
 
